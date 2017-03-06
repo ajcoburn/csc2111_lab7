@@ -2,7 +2,8 @@
 #define QUEUELINKED_H
 
 #include "NextNode.h"
-
+#include <iostream>
+using namespace std;
 template < class T >
 class QueueLinked
 {
@@ -88,17 +89,17 @@ void QueueLinked<T>::enqueue(T* item)
     //DO THIS (enqueueing the first item is a special case)
 	if (isEmpty())
 	{
-		node = back;
-		back->setNext(node);
-		NextNode<T>* head = back->getNext();
+		node->setNext(node);
 	}
 	else
 	{
-		NextNode<T>* head = back->getNext();
-		node = back;
-		back->setNext(head);
+		node->setNext(back->getNext());
+		back->setNext(node);
 	}
-
+	
+	back = node;
+	
+	delete node;
     sze++;
 }
 
@@ -112,20 +113,20 @@ T* QueueLinked<T>::dequeue()
 	if (sze > 1)
 	{
 		NextNode<T>* head = back->getNext();
-		NextNode<T>* next = head->getNext();
 		item = head->getItem();
-		head = next;
-		back->setNext(head);
-		delete next;
+		//cout << item->getValue() << endl;
+		back->setNext(head->getNext());
 	}
 	else if (sze == 1)
 	{
 		item = back->getItem();
+
 		back = NULL;
 	}
 	else
 		item = NULL;
 
+	sze--;
     return item;
 }
 
