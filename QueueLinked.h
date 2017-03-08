@@ -90,7 +90,7 @@ void QueueLinked<T>::enqueue(T* item)
 	if (isEmpty())
 	{
 		back = node;
-		back->setNext(NULL);	
+		back->setNext(back);	
 		
 	}
 	else
