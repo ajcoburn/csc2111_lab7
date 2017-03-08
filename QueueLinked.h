@@ -89,15 +89,16 @@ void QueueLinked<T>::enqueue(T* item)
     //DO THIS (enqueueing the first item is a special case)
 	if (isEmpty())
 	{
-		back = node;
-		back->setNext(back);	
 		
+		node->setNext(node);	
+		back = node;
 	}
 	else
 	{
 		/* node->setNext(back->getNext());
 		back->setNext(node); */
-		node->setNext(back);
+		node->setNext(tail->getNext());
+		back->setNext(node);
 		back = node;
 	}
 	
