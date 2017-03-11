@@ -89,15 +89,20 @@ void QueueLinked<T>::enqueue(T* item)
     //DO THIS (enqueueing the first item is a special case)
 	if (isEmpty())
 	{
-		node->setNext(node);
+		
+		node->setNext(node);	
+		back = node;
 	}
 	else
 	{
-		node->setNext(back->getNext());
+		/* node->setNext(back->getNext());
+		back->setNext(node); */
+		node->setNext(tail->getNext());
 		back->setNext(node);
+		back = node;
 	}
 	
-	back = node;
+	
 	
     sze++;
 }
@@ -113,7 +118,10 @@ T* QueueLinked<T>::dequeue()
 	if (!isEmpty())
 	{
 		NextNode<T>* head = back->getNext();
+		//NextNode<T>* prev = NULL;
 		item = head->getItem();
+		head->setNext(NULL);
+		delete head;
 		
 		if (head == back)
 		{
@@ -123,6 +131,7 @@ T* QueueLinked<T>::dequeue()
 		
 		else
 			back->setNext(head->getNext());
+	}
 		
 		delete head;
 		sze--;
