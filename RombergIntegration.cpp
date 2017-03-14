@@ -48,7 +48,8 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
       //DO THIS
       //use the algorithm described in the lab to improve the accuracy of your level 0 results
 		
-		
+		while(q1->size() != 1)
+		{
 			double Il = (q1->dequeue())->getValue();
 			double Im = (q1->peek())->getValue();
 			double fourK = pow(4.0, power);
@@ -57,6 +58,7 @@ double RombergIntegration::accurateRomberg(MultiVarFunction* f, double a, double
 			db = new Double(factor);
 			
 			q2->enqueue(db);
+		}
 		
 		if ((q1->size()) == 1)
 		{
